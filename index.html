@@ -11,3 +11,9 @@ function showOne(s){result.classList.add('show');options.innerHTML='';document.g
 function searchNow(){const x=norm(q.value);result.classList.add('show');options.innerHTML='';document.getElementById('teacherBox').innerHTML='';if(!x){document.getElementById('resultName').textContent='اكتبي اسم الطفل أولاً';document.getElementById('resultClass').textContent='—';return}const parts=x.split(' ').filter(Boolean);const found=students.filter(s=>{const n=norm(s.name);return parts.every(p=>n.includes(p))});if(!found.length){document.getElementById('resultName').textContent='لم يتم العثور على الاسم';document.getElementById('resultClass').textContent='—';return}if(found.length===1)return showOne(found[0]);document.getElementById('resultName').textContent='وجدت '+found.length+' أسماء';document.getElementById('resultClass').textContent='اختاري الاسم';found.forEach(s=>{let b=document.createElement('button');b.className='option';b.innerHTML='<b>'+s.name+'</b><br><span class="small">الفصل: '+s.cls+'</span>';b.onclick=()=>showOne(s);options.appendChild(b)})}
 q.addEventListener('input',()=>{if(norm(q.value).length>=2)searchNow();else result.classList.remove('show')});q.addEventListener('keydown',e=>{if(e.key==='Enter')searchNow()});
 </script></body></html>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js');
+}
+</script>
+
